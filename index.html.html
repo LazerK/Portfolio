@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Security Portfolio — Drawing Set</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+
+  :root {
+    --paper: #EAF1F8;
+    --paper-raised: #F5F9FC;
+    --ink: #14283D;
+    --ink-soft: #4C6C87;
+    --line: #A9C0D3;
+    --line-strong: #7A98B0;
+    --redline: #B3311C;
+    --redline-soft: #B3311C33;
+
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #0E1D2C;
+      --paper-raised: #142434;
+      --ink: #DCEAF5;
+      --ink-soft: #8FA9C0;
+      --line: #2C4A63;
+      --line-strong: #3E617D;
+      --redline: #E2574C;
+      --redline-soft: #E2574C33;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --paper: #0E1D2C;
+    --paper-raised: #142434;
+    --ink: #DCEAF5;
+    --ink-soft: #8FA9C0;
+    --line: #2C4A63;
+    --line-strong: #3E617D;
+    --redline: #E2574C;
+    --redline-soft: #E2574C33;
+  }
+
+  html {
+    scroll-padding-top: env(safe-area-inset-top, 0px);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background:
+      radial-gradient(var(--line) 1px, transparent 1px);
+    background-size: 28px 28px;
+    background-color: var(--paper);
+    color: var(--ink);
+    font-family: "Inter", system-ui, sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .sheet {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  .mono {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+  }
+
+  /* ---------- Title block ---------- */
+
+  .titleblock {
+    padding: 64px 0 40px;
+  }
+
+  .titleblock__meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-size: 0.72rem;
+    letter-spacing: 0.04em;
+    color: var(--ink-soft);
+    border-bottom: 1px solid var(--line-strong);
+    padding-bottom: 10px;
+    margin-bottom: 28px;
+  }
+
+  .titleblock__meta span:last-child { color: var(--redline); }
+
+  h1.name {
+    font-family: "JetBrains Mono", monospace;
+    font-weight: 700;
+    font-size: clamp(2rem, 6vw, 3rem);
+    margin: 0 0 6px;
+    letter-spacing: -0.01em;
+  }
+
+  .role-line {
+    font-size: 1.05rem;
+    color: var(--ink-soft);
+    margin: 0 0 22px;
+    max-width: 46ch;
+  }
+
+  .tag-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .tag {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.7rem;
+    padding: 4px 9px;
+    border: 1px solid var(--line-strong);
+    border-radius: 3px;
+    color: var(--ink-soft);
+  }
+
+  .tag--status {
+    border-color: var(--redline);
+    color: var(--redline);
+  }
+
+  /* ---------- Section frame ---------- */
+
+  section.panel {
+    position: relative;
+    padding: 34px 0 34px 0;
+    border-top: 1px solid var(--line);
+  }
+
+  .panel__tag {
+    position: absolute;
+    top: 34px;
+    left: -24px;
+    transform: translateX(-100%);
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.68rem;
+    color: var(--ink-soft);
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    letter-spacing: 0.06em;
+    display: none;
+  }
+
+  @media (min-width: 900px) {
+    .panel__tag { display: block; }
+    .sheet { max-width: 800px; }
+  }
+
+  .panel__head {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    margin-bottom: 18px;
+  }
+
+  .panel__num {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.75rem;
+    color: var(--redline);
+    flex: none;
+  }
+
+  .panel__title {
+    font-family: "JetBrains Mono", monospace;
+    font-weight: 600;
+    font-size: 1.05rem;
+    margin: 0;
+    letter-spacing: 0.01em;
+  }
+
+  .panel p {
+    max-width: 62ch;
+    color: var(--ink);
+  }
+
+  .panel p.lede {
+    font-size: 1.02rem;
+  }
+
+  /* ---------- Education / timeline ---------- */
+
+  .record {
+    display: grid;
+    grid-template-columns: 96px 1fr;
+    gap: 18px;
+    padding: 14px 0;
+    border-bottom: 1px dashed var(--line);
+  }
+  .record:last-child { border-bottom: none; }
+
+  .record__when {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.78rem;
+    color: var(--ink-soft);
+    padding-top: 2px;
+  }
+
+  .record__what h3 {
+    margin: 0 0 4px;
+    font-size: 1rem;
+    font-weight: 600;
+  }
+
+  .record__what p {
+    margin: 0;
+    font-size: 0.92rem;
+    color: var(--ink-soft);
+  }
+
+  /* ---------- Certifications ---------- */
+
+  .cert-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .cert {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 13px 0;
+    border-bottom: 1px dashed var(--line);
+  }
+  .cert:last-child { border-bottom: none; }
+
+  .cert__name { font-weight: 600; }
+  .cert__issuer { font-size: 0.85rem; color: var(--ink-soft); }
+
+  .status-pill {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.68rem;
+    white-space: nowrap;
+    padding: 3px 9px;
+    border-radius: 3px;
+    border: 1px solid var(--redline);
+    color: var(--redline);
+  }
+
+  .status-pill--completed {
+  border-color: #2E7D32;
+  color: #2E7D32;
+  background: rgba(46, 125, 50, 0.08);
+}
+  /* ---------- Skills matrix ---------- */
+
+  .matrix {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 22px;
+  }
+
+  .matrix__group h4 {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.04em;
+    color: var(--ink-soft);
+    margin: 0 0 10px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .matrix__group ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .matrix__group li {
+    font-size: 0.92rem;
+    padding-left: 14px;
+    position: relative;
+  }
+
+  .matrix__group li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.55em;
+    width: 6px;
+    height: 1px;
+    background: var(--line-strong);
+  }
+
+  /* ---------- Projects ---------- */
+
+  .project {
+    border: 1px solid var(--line);
+    border-radius: 2px;
+    padding: 20px 22px;
+    margin-bottom: 16px;
+    background: var(--paper-raised);
+  }
+  .project:last-child { margin-bottom: 0; }
+
+  .project__head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 6px;
+  }
+
+  .project__name {
+    font-weight: 600;
+    font-size: 1.02rem;
+  }
+
+  .project__scope {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.68rem;
+    color: var(--ink-soft);
+  }
+
+  .project p {
+    margin: 8px 0 0;
+    font-size: 0.94rem;
+    color: var(--ink-soft);
+  }
+
+  .project__stack {
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .project__stack span {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.68rem;
+    color: var(--ink-soft);
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    padding: 2px 7px;
+  }
+
+  /* ---------- Contact / signature block ---------- */
+
+  .sig {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 28px;
+    align-items: flex-end;
+    justify-content: space-between;
+  }
+
+  .sig__lines a {
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--line-strong);
+  }
+  .sig__lines a:hover { border-color: var(--redline); color: var(--redline); }
+
+  .sig__row {
+    font-size: 0.94rem;
+    padding: 5px 0;
+  }
+  .sig__label {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.68rem;
+    color: var(--ink-soft);
+    display: inline-block;
+    width: 84px;
+  }
+
+  footer {
+    padding: 30px 0 60px;
+    text-align: right;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.68rem;
+    color: var(--ink-soft);
+  }
+
+  /* ---------- load-in scan (single orchestrated moment) ---------- */
+
+  .titleblock__meta, h1.name, .role-line, .tag-row {
+    opacity: 0;
+    animation: draw-in 0.5s ease forwards;
+  }
+  .titleblock__meta { animation-delay: 0s; }
+  h1.name { animation-delay: 0.12s; }
+  .role-line { animation-delay: 0.22s; }
+  .tag-row { animation-delay: 0.32s; }
+
+  @keyframes draw-in {
+    from { opacity: 0; transform: translateY(4px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .titleblock__meta, h1.name, .role-line, .tag-row {
+      animation: none;
+      opacity: 1;
+    }
+  }
+
+  a:focus-visible, .tag:focus-visible {
+    outline: 2px solid var(--redline);
+    outline-offset: 2px;
+  }
+
+  @media (max-width: 480px) {
+    .record { grid-template-columns: 1fr; gap: 4px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="sheet">
+
+  <div class="titleblock">
+    <div class="titleblock__meta mono">
+      <span>IT · CYBER SECURITY PORTFOLIO</span>
+      <span>REV. 2026-09-22</span>
+    </div>
+    <h1 class="name">Klauss Abel Iftimia Lazer</h1>
+    <p class="role-line">Cyber Security graduate (BSc Hons, 2:1) building a career across IT and security. Hands-on with networking, Windows systems, hardware troubleshooting and security fundamentals, while expanding my skills in Microsoft 365, Intune and Entra ID. I enjoy solving technical problems, building projects and continuously developing my practical IT and cyber security skills.</p>
+    <div class="tag-row">
+      <span class="tag">Cyber Security</span>
+      <span class="tag">IT Support</span>
+      <span class="tag">Networking</span>
+      <span class="tag tag--status">Open to work</span>
+    </div>
+  </div>
+
+  <section class="panel" id="profile">
+    <span class="panel__tag mono">SHEET 01</span>
+    <div class="panel__head">
+      <span class="panel__num mono">01</span>
+      <h2 class="panel__title">Profile</h2>
+    </div>
+    <p class="lede">Cyber Security graduate with a practical interest in IT support, systems and networking. My degree and IT Technician Skills Bootcamp have given me experience across security fundamentals, Windows environments, hardware and software troubleshooting, Microsoft 365, Intune and Entra ID. I enjoy diagnosing technical problems, learning through hands-on projects and continuously developing my skills across IT and cyber security.</p>
+  </section>
+
+  <section class="panel" id="education">
+    <span class="panel__tag mono">SHEET 02</span>
+    <div class="panel__head">
+      <span class="panel__num mono">02</span>
+      <h2 class="panel__title">Education</h2>
+    </div>
+    <div class="record">
+      <div class="record__when mono">2019–2022</div>
+      <div class="record__what">
+        <h3>Information Technology</h3>
+        <p>City of Wolverhampton College - Information Technology - Hardware Basics, Software Basics, Programming, Web Development.</p>
+      </div>
+    </div>
+    <div class="record">
+      <div class="record__when mono">2022–2026</div>
+      <div class="record__what">
+        <h3>BSc (Hons) Cyber Security</h3>
+        <p>Coventry University Scarborough - Security - Cryptography, Computer Forensics, Networking, Operating Systems Security, Windows, Linux.</p>
+      </div>
+    </div>
+    <div class="record">
+      <div class="record__when mono">2026–2026</div>
+      <div class="record__what">
+        <h3>IT Technician Bootcamp Level 3</h3>
+        <p>Leep Talent - IT Technician - Hardware & Software Troubleshooting, Microsoft 365 Management & Endpoint Administration, Microsoft Entra ID, Microsoft Intune, Microsoft Security.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel" id="certifications">
+    <span class="panel__tag mono">SHEET 03</span>
+    <div class="panel__head">
+      <span class="panel__num mono">03</span>
+      <h2 class="panel__title">Certifications</h2>
+    </div>
+    <div class="cert-list">
+      <div class="cert">
+        <div>
+          <div class="cert__name">Pre-Security SEC0</div>
+          <div class="cert__issuer">TryHackMe</div>
+        </div>
+        <span class="status-pill status-pill--completed">Completed</span>
+      </div>
+      <div class="cert">
+        <div>
+          <div class="cert__name">Cyber Security 101 SEC1</div>
+          <div class="cert__issuer">TryHackMe</div>
+        </div>
+        <span class="status-pill">In Progress</span>
+      </div>
+      <div class="cert">
+        <div>
+          <div class="cert__name">CompTIA A+</div>
+          <div class="cert__issuer">CompTIA</div>
+        </div>
+        <span class="status-pill">In Progress</span>
+      </div>
+      <div class="cert">
+        <div>
+          <div class="cert__name">CompTIA Security+</div>
+          <div class="cert__issuer">CompTIA</div>
+        </div>
+        <span class="status-pill">In Progress</span>
+      </div>
+      <div class="cert">
+        <div>
+          <div class="cert__name">MS-102</div>
+          <div class="cert__issuer">Microsoft</div>
+        </div>
+        <span class="status-pill">In Progress</span>
+      </div>
+      <div class="cert">
+        <div>
+          <div class="cert__name">MD-102</div>
+          <div class="cert__issuer">Microsoft</div>
+        </div>
+        <span class="status-pill">In Progress</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel" id="skills">
+    <span class="panel__tag mono">SHEET 04</span>
+    <div class="panel__head">
+      <span class="panel__num mono">04</span>
+      <h2 class="panel__title">Skills matrix</h2>
+    </div>
+    <div class="matrix">
+      <div class="matrix__group">
+        <h4>NETWORKING</h4>
+        <ul>
+          <li>TCP/IP fundamentals</li>
+          <li>Firewalls &amp; segmentation</li>
+          <li>Network connectivity</li>
+          <li>Network security</li>
+          <li>Network troubleshooting</li>
+        </ul>
+      </div>
+      <div class="matrix__group">
+        <h4>SYSTEMS</h4>
+        <ul>
+          <li>Windows administration</li>
+          <li>Hardware troubleshooting</li>
+          <li>Windows installation</li>
+          <li>Endpoint administration</li>
+          <li>PC &amp; peripheral support</li>
+        </ul>
+      </div>
+      <div class="matrix__group">
+        <h4>SECURITY</h4>
+        <ul>
+          <li>Cyber Security Fundamentals</li>
+          <li>Network Security</li>
+          <li>Cryptography</li>
+          <li>Computer Forensics</li>
+          <li>MFA &amp; access security</li>
+        </ul>
+      </div>
+      <div class="matrix__group">
+        <h4>TOOLS</h4>
+        <ul>
+          <li>Microsoft 365</li>
+          <li>Microsoft Intune</li>
+          <li>Microsoft Entra ID</li>
+          <li>Python / JavaScript / C++</li>
+          <li>Wireshark</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel" id="projects">
+    <span class="panel__tag mono">SHEET 05</span>
+    <div class="panel__head">
+      <span class="panel__num mono">05</span>
+      <h2 class="panel__title">Projects &amp; writeups</h2>
+    </div>
+
+    <div class="project">
+      <div class="project__head">
+        <span class="project__name">Minecraft: The World Remembers</span>
+        <span class="project__scope mono">PERSONAL</span>
+      </div>
+      <p>I developed a custom Minecraft mod using JavaScript, extending the game with new mechanics and behaviours. Built and debugged event-driven features while working with Minecraft's scripting/modding systems, strengthening my JavaScript, debugging, and problem-solving skills. </p>
+      <div class="project__stack">
+        <span>JavaScript</span><span>Event-Driven Programming</span><span>Debugging</span>
+      </div>
+    </div>
+
+    <div class="project">
+      <div class="project__head">
+        <span class="project__name">[TO BE COMPLETED]</span>
+        <span class="project__scope mono">TBC</span>
+      </div>
+      <p>TO BE COMPLETED</p>
+      <div class="project__stack">
+        <span>TBC</span><span>TBC</span><span>TBC</span>
+      </div>
+    </div>
+
+    <div class="project">
+      <div class="project__head">
+        <span class="project__name">[TO BE COMPLETED]</span>
+        <span class="project__scope mono">TBC</span>
+      </div>
+      <p>TO BE COMPLETED</p>
+      <div class="project__stack">
+        <span>TBC</span><span>TBC</span><span>TBC</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel" id="contact">
+    <span class="panel__tag mono">SHEET 06</span>
+    <div class="panel__head">
+      <span class="panel__num mono">06</span>
+      <h2 class="panel__title">Contact</h2>
+    </div>
+    <div class="sig">
+      <div class="sig__lines">
+        <div class="sig__row"><span class="sig__label mono">EMAIL</span><a href="mailto:klaussiftimia435@gmail.com">klaussiftimia435@gmail.com</a></div>
+        <div class="sig__row"><span class="sig__label mono">LINKEDIN</span><a href="https://www.linkedin.com/in/klauss-abel-iftimia-lazer-b3827a283/">https://www.linkedin.com/in/klauss-abel-iftimia-lazer-b3827a283/</a></div>
+        <div class="sig__row"><span class="sig__label mono">GITHUB</span><a href="https://github.com/LazerK">https://github.com/LazerK</a></div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="mono">END OF SET · 06 SHEETS</footer>
+
+</div>
+
+</body>
+</html>
